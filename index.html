@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CampusConnect - College Complaint Portal</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body> 
+
+    <!-- ================= LOGIN PAGE ================= -->
+
+    <section id="loginPage" class="login-page">
+
+        <div class="login-card">
+
+            <div class="logo-circle">
+                CC
+            </div>
+
+            <h1>CampusConnect</h1>
+
+            <p class="login-subtitle">
+                College Complaint Management System
+            </p>
+
+            <form id="loginForm">
+
+                <label>Email</label>
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email"
+                    required
+                >
+
+                <label>Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    required
+                >
+
+                <label>Login As</label>
+
+                <select id="loginRole">
+                    <option value="student">Student</option>
+                    <option value="admin">Administrator</option>
+                </select>
+
+                <button type="submit" class="primary-btn">
+                    Login
+                </button>
+
+            </form>
+
+            <p class="demo-text">
+                Demo: Enter any email and password
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= STUDENT APPLICATION ================= -->
+
+    <section id="studentApp" class="app hidden">
+
+        <!-- Sidebar -->
+
+        <aside class="sidebar">
+
+            <div class="brand">
+                <div class="brand-icon">CC</div>
+                <span>CampusConnect</span>
+            </div>
+
+            <nav>
+
+                <button class="nav-btn active" data-section="studentDashboard">
+                    📊 Dashboard
+                </button>
+
+                <button class="nav-btn" data-section="submitComplaint">
+                    📝 Submit Complaint
+                </button>
+
+                <button class="nav-btn" data-section="myComplaints">
+                    📋 My Complaints
+                </button>
+
+            </nav>
+
+            <button class="logout-btn" onclick="logout()">
+                🚪 Logout
+            </button>
+
+        </aside>
+
+
+        <!-- Main Content -->
+
+        <main class="main-content">
+
+            <!-- Top Bar -->
+
+            <header class="topbar">
+
+                <div>
+                    <h2 id="pageTitle">Dashboard</h2>
+                    <p>College Complaint Portal</p>
+                </div>
+
+                <div class="user-info">
+                    <div class="avatar">S</div>
+
+                    <div>
+                        <strong>Student</strong>
+                        <small>student@college.com</small>
+                    </div>
+                </div>
+
+            </header>
+
+
+            <!-- STUDENT DASHBOARD -->
+
+            <section id="studentDashboard" class="content-section">
+
+                <div class="welcome">
+                    <h1>Welcome back! 👋</h1>
+
+                    <p>
+                        Submit and track your college complaints easily.
+                    </p>
+
+                    <button
+                        class="primary-btn"
+                        onclick="openSection('submitComplaint')"
+                    >
+                        + Submit New Complaint
+                    </button>
+                </div>
+
+
+                <!-- Statistics -->
+
+                <div class="stats-grid">
+
+                    <div class="stat-card">
+                        <div class="stat-icon blue">📋</div>
+                        <div>
+                            <span>Total Complaints</span>
+                            <h2 id="studentTotal">0</h2>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon orange">⏳</div>
+                        <div>
+                            <span>Pending</span>
+                            <h2 id="studentPending">0</h2>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon purple">🔧</div>
+                        <div>
+                            <span>In Progress</span>
+                            <h2 id="studentProgress">0</h2>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon green">✓</div>
+                        <div>
+                            <span>Resolved</span>
+                            <h2 id="studentResolved">0</h2>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- Recent Complaints -->
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <h3>Recent Complaints</h3>
+                            <p>Your recently submitted complaints</p>
+                        </div>
+
+                        <button
+                            class="secondary-btn"
+                            onclick="openSection('myComplaints')"
+                        >
+                            View All
+                        </button>
+
+                    </div>
+
+                    <div id="recentComplaints"></div>
+
+                </div>
+
+            </section>
+
+
+            <!-- SUBMIT COMPLAINT -->
+
+            <section id="submitComplaint" class="content-section hidden">
+
+                <div class="section-heading">
+
+                    <h1>Submit a Complaint</h1>
+
+                    <p>
+                        Provide details about the issue you are facing.
+                    </p>
+
+                </div>
+
+
+                <div class="form-card">
+
+                    <form id="complaintForm">
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+
+                                <label>Complaint Title *</label>
+
+                                <input
+                                    type="text"
+                                    id="complaintTitle"
+                                    placeholder="Example: Projector not working"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>Category *</label>
+
+                                <select id="category" required>
+
+                                    <option value="">
+                                        Select category
+                                    </option>
+
+                                    <option>Infrastructure</option>
+                                    <option>Internet / Wi-Fi</option>
+                                    <option>Cleanliness</option>
+                                    <option>Electricity</option>
+                                    <option>Water</option>
+                                    <option>Academic</option>
+                                    <option>Hostel</option>
+                                    <option>Canteen</option>
+                                    <option>Transport</option>
+                                    <option>Laboratory</option>
+                                    <option>Other</option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>Location *</label>
+
+                                <input
+                                    type="text"
+                                    id="location"
+                                    placeholder="Example: Block A - Room 204"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label>Priority</label>
+
+                                <select id="priority">
+
+                                    <option value="Low">Low</option>
+                                    <option value="Medium" selected>
+                                        Medium
+                                    </option>
+                                    <option value="High">High</option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>Description *</label>
+
+                            <textarea
+                                id="description"
+                                rows="6"
+                                placeholder="Describe the problem in detail..."
+                                required
+                            ></textarea>
+
+                        </div>
+
+
+                        <!-- AI ASSISTANT -->
+
+                        <div class="ai-box">
+
+                            <div class="ai-title">
+                                🤖 AI Complaint Assistant
+                            </div>
+
+                            <p>
+                                Analyze your complaint and get a suggested
+                                category, department and priority.
+                            </p>
+
+                            <button
+                                type="button"
+                                class="ai-btn"
+                                onclick="analyzeComplaint()"
+                            >
+                                Analyze Complaint
+                            </button>
+
+                            <div
+                                id="aiResult"
+                                class="ai-result hidden"
+                            ></div>
+
+                        </div>
+
+
+                        <div class="form-actions">
+
+                            <button
+                                type="reset"
+                                class="secondary-btn"
+                                onclick="clearAIResult()"
+                            >
+                                Clear
+                            </button>
+
+                            <button
+                                type="submit"
+                                class="primary-btn"
+                            >
+                                Submit Complaint
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </section>
+
+
+            <!-- MY COMPLAINTS -->
+
+            <section id="myComplaints" class="content-section hidden">
+
+                <div class="section-heading">
+
+                    <h1>My Complaints</h1>
+
+                    <p>
+                        Track the status of your submitted complaints.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div id="allStudentComplaints"></div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </section>
+
+
+    <!-- ================= ADMIN APPLICATION ================= -->
+
+    <section id="adminApp" class="app hidden">
+
+        <aside class="sidebar admin-sidebar">
+
+            <div class="brand">
+                <div class="brand-icon">CC</div>
+                <span>CampusConnect</span>
+            </div>
+
+            <nav>
+
+                <button
+                    class="nav-btn active"
+                    data-section="adminDashboard"
+                >
+                    📊 Dashboard
+                </button>
+
+                <button
+                    class="nav-btn"
+                    data-section="adminComplaints"
+                >
+                    📋 Manage Complaints
+                </button>
+
+            </nav>
+
+            <button class="logout-btn" onclick="logout()">
+                🚪 Logout
+            </button>
+
+        </aside>
+
+
+        <main class="main-content">
+
+            <header class="topbar">
+
+                <div>
+                    <h2>Administrator</h2>
+                    <p>Complaint Management Panel</p>
+                </div>
+
+                <div class="user-info">
+
+                    <div class="avatar admin-avatar">
+                        A
+                    </div>
+
+                    <div>
+                        <strong>Administrator</strong>
+                        <small>admin@college.com</small>
+                    </div>
+
+                </div>
+
+            </header>
+
+
+            <!-- ADMIN DASHBOARD -->
+
+            <section
+                id="adminDashboard"
+                class="content-section"
+            >
+
+                <div class="section-heading">
+
+                    <h1>Admin Dashboard</h1>
+
+                    <p>
+                        Monitor and manage student complaints.
+                    </p>
+
+                </div>
+
+
+                <div class="stats-grid">
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon blue">📋</div>
+
+                        <div>
+                            <span>Total Complaints</span>
+                            <h2 id="adminTotal">0</h2>
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon orange">⏳</div>
+
+                        <div>
+                            <span>Pending</span>
+                            <h2 id="adminPending">0</h2>
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon purple">🔧</div>
+
+                        <div>
+                            <span>In Progress</span>
+                            <h2 id="adminProgress">0</h2>
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon green">✓</div>
+
+                        <div>
+                            <span>Resolved</span>
+                            <h2 id="adminResolved">0</h2>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <h3>Recent Complaints</h3>
+                            <p>Latest complaints from students</p>
+                        </div>
+
+                        <button
+                            class="secondary-btn"
+                            onclick="openAdminSection('adminComplaints')"
+                        >
+                            Manage All
+                        </button>
+
+                    </div>
+
+                    <div id="adminRecentComplaints"></div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ADMIN COMPLAINT MANAGEMENT -->
+
+            <section
+                id="adminComplaints"
+                class="content-section hidden"
+            >
+
+                <div class="section-heading">
+
+                    <h1>Manage Complaints</h1>
+
+                    <p>
+                        Review and update complaint status.
+                    </p>
+
+                </div>
+
+
+                <div class="filter-bar">
+
+                    <input
+                        type="text"
+                        id="searchComplaint"
+                        placeholder="Search complaint..."
+                        oninput="renderAdminComplaints()"
+                    >
+
+                    <select
+                        id="statusFilter"
+                        onchange="renderAdminComplaints()"
+                    >
+
+                        <option value="All">
+                            All Status
+                        </option>
+
+                        <option value="Submitted">
+                            Submitted
+                        </option>
+
+                        <option value="Under Review">
+                            Under Review
+                        </option>
+
+                        <option value="In Progress">
+                            In Progress
+                        </option>
+
+                        <option value="Resolved">
+                            Resolved
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div id="adminComplaintsList"></div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </section>
+
+
+    <!-- Toast Notification -->
+
+    <div id="toast" class="toast"></div>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
